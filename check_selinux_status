@@ -1,0 +1,20 @@
+#!/bin/bash
+
+GET_SELINUX_STATUS=`getenforce`
+
+if [[ $GET_SELINUX_STATUS == "Enforcing" ]]; then
+  STATUS="OK - SELinux is enforcing"
+  EXIT=0
+elif [[ $GET_SELINUX_STATUS == "Permissive" ]]; then
+  STATUS="WARNING - Selinux is permissive"
+  EXIT=1
+elif [[ $GET_SELINUX_STATUS == "Disabled" ]]; then
+  STATUS="WARNING - selinux is disabled"
+  EXIT=1
+else
+  STATUS="ERROR - Parse error - Manually check. This is probably bad"
+  EXIT=1
+fi
+
+echo $STATUS
+echo $EXIT
